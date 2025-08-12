@@ -7,9 +7,9 @@ import React from 'react'
 import {Formik} from "formik";
 import validationSchema from '../../utils/authSchema';
 
-const Signup = () => {
+const Signin = () => {
   const router = useRouter();
-  const handleSignup=()=>{
+  const handleSignin=()=>{
 
     } 
   return (
@@ -23,7 +23,7 @@ const Signup = () => {
        
       <View className="w-5/6">
         <Formik initialValues={{email:"",password:""}} 
-        validationSchema={validationSchema} onSubmit={handleSignup}>
+        validationSchema={validationSchema} onSubmit={handleSignin}>
           {({handleChange,handleBlur,handleSubmit,values,errors,touched})=>(
             <View className="w-full">
               <Text className="text-[#f49b33] mt-4 mb-2">Email</Text>
@@ -52,7 +52,7 @@ const Signup = () => {
                   </Text>)}
                <TouchableOpacity onPress={handleSubmit} className="p-2 m-2 bg-[#f49b33] text-black rounded-lg mt-10" >
                 <Text className="text-lg font-semibold text-center">
-              Sign up
+              Sign in
                 </Text>
               </TouchableOpacity>
             </View>
@@ -61,9 +61,9 @@ const Signup = () => {
         <View>
           <TouchableOpacity 
           className = "flex flex-row justify-center my-5 p-2 items-center"
-          onPress={()=>router.push("/signin")}>
-            <Text className="text-white font-semibold">Already a User? </Text>
-            <Text className="text-base font-semibold underline text-[#f49b33]">Sign in </Text>
+          onPress={()=>router.push("/signup")}>
+            <Text className="text-white font-semibold">New User? </Text>
+            <Text className="text-base font-semibold underline text-[#f49b33]">Sign up </Text>
           </TouchableOpacity>
         </View>
         </View>    
@@ -77,4 +77,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Signin
