@@ -1,0 +1,113 @@
+const restaurants = [
+  {
+    name: "Sea Grill of Merrick Park",
+    seats: 50,
+    image: "https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg",
+    address: `4250 Salzedo Street, Suite 1425Coral Gables, FL 33146`,
+    opening: "11:30",
+    closing: "23:00",
+  },
+  {
+    address: "123 Ocean Drive, Suite 101, Miami Beach, FL 33139",
+    closing: "22:00",
+    image:
+      "https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    name: "Ocean's Edge Bistro",
+    opening: "10:00",
+    seats: 50,
+  },
+  {
+    address: "789 Sunset Blvd, Suite 202, Los Angeles, CA 90069",
+    closing: "00:00",
+    image: "https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg",
+    name: "Sunset Grill",
+    opening: "11:00",
+    seats: 75,
+  },
+  {
+    address: "456 River Road, Suite 300, New York, NY 10001",
+    closing: "23:30",
+    image: "https://images.pexels.com/photos/687824/pexels-photo-687824.jpeg",
+    name: "Riverside Diner",
+    opening: "09:00",
+    seats: 65,
+  },
+  {
+    address: "321 Bay Street, Suite 400, San Francisco, CA 94133",
+    closing: "22:30",
+    image: "https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg",
+    name: "Bayview Café",
+    opening: "10:30",
+    seats: 80,
+  },
+  {
+    address: "555 Lake Avenue, Suite 120, Chicago, IL 60611",
+    closing: "23:00",
+    image: "https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg",
+    name: "Lakeside Eatery",
+    opening: "11:00",
+    seats: 70,
+  },
+  {
+    address: "789 Fifth Avenue, Suite 201, New York, NY 10022",
+    closing: "21:30",
+    image: "https://images.pexels.com/photos/704971/pexels-photo-704971.jpeg",
+    name: "Central Park Café",
+    opening: "08:30",
+    seats: 60,
+  },
+  {
+    address: "1000 Broadway, Suite 500, Nashville, TN 37203",
+    closing: "00:30",
+    image:
+      "https://images.pexels.com/photos/776538/pexels-photo-776538.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    name: "Music City Grill",
+    opening: "12:00",
+    seats: 100,
+  },
+  {
+    address: "222 Elm Street, Suite 101, Dallas, TX 75201",
+    closing: "22:00",
+    image:
+      "https://images.pexels.com/photos/239975/pexels-photo-239975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    name: "Texas BBQ House",
+    opening: "10:00",
+    seats: 90,
+  },
+  {
+    address: "789 Pine Street, Suite 204, Seattle, WA 98101",
+    closing: "23:00",
+    image: "https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg",
+    name: "Evergreen Eatery",
+    opening: "11:30",
+    seats: 85,
+  },
+  {
+    address: "456 King Street, Suite 100, Charleston, SC 29403",
+    closing: "22:00",
+    image:
+      "https://images.pexels.com/photos/1628020/pexels-photo-1628020.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    name: "Lowcountry Diner",
+    opening: "09:30",
+    seats: 55,
+  },
+  {
+    address: "789 Bourbon Street, Suite 300, New Orleans, LA 70116",
+    closing: "01:00",
+    image: "https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg",
+    name: "Bourbon Street Grill",
+    opening: "11:00",
+    seats: 110,
+  },
+  {
+    address: "123 Main Street, Suite 150, Las Vegas, NV 89109",
+    closing: "23:30",
+    image: "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg",
+    name: "Vegas Strip Café",
+    opening: "12:00",
+    seats: 120,
+  },
+];
+
+
+export default restaurants;
