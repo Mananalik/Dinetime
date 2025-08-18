@@ -1,12 +1,18 @@
-import React from 'react'
 import { View, Text, Image, ScrollView, ImageBackground, TouchableOpacity, Platform, FlatList, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import logo from "../../assets/images/dinetimelogo.png";
 import banner from "../../assets/images/homeBanner.png";
 import { BlurView } from 'expo-blur';
-import restaurants from '../../store/restaurants';
+// import { restaurants } from '../../store/restaurants';
+import { query, collection ,getDocs } from 'firebase/firestore';
+import {db} from '../../config/firebaseConfig';
+import { useEffect,useState } from 'react';
+// import uploadData from '../../config/bulkupload';
 export default function Home() {
+    const [restaurants,setRestaurants] = useState([]);
+
   const renderItem = ({item}) => (
+    
     <TouchableOpacity className="bg-[#4f5d75] max-h-64 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow-md">
       <Image resizeMode="cover" 
         source={{uri: item.image}}
@@ -17,6 +23,17 @@ export default function Home() {
       <Text className="text-white text-base mb-2">Open: {item.opening}-Close: {item.closing}</Text>
     </TouchableOpacity>
   );
+  const getRestaurants = async()=>{
+    const q = query(collection(db,"restaurants"));
+    const res = await getDocs(q);
+
+    res.forEach((item)=>{
+      setRestaurants((prev)=>[...prev,item.data()]);
+    });
+  };
+  useEffect(()=>{
+    getRestaurants();
+  },[]);
   return (
     <SafeAreaView style={[{backgroundColor:"#232946"}, 
     Platform.OS==="android" && {paddingBottom: 55},
