@@ -7,13 +7,15 @@ import { BlurView } from 'expo-blur';
 import { query, collection ,getDocs } from 'firebase/firestore';
 import {db} from '../../config/firebaseConfig';
 import { useEffect,useState } from 'react';
+import { useRouter } from 'expo-router';
 // import uploadData from '../../config/bulkupload';
 export default function Home() {
     const [restaurants,setRestaurants] = useState([]);
+    const router = useRouter();
 
   const renderItem = ({item}) => (
     
-    <TouchableOpacity className="bg-[#4f5d75] max-h-64 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow-md">
+    <TouchableOpacity onPress={()=>router.push(`/restaurant/${item.name}`)} className="bg-[#4f5d75] max-h-64 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow-md">
       <Image resizeMode="cover" 
         source={{uri: item.image}}
         className="h-28 mt-2 mb-1 rounded-lg"
