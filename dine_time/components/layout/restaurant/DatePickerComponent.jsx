@@ -14,7 +14,7 @@ const DatePickerComponent = ({date,setDate}) => {
     setShow(true);
   };
   return (
-    <View className="flex p-2 flex-row">
+    <View className="flex  flex-row">
       <TouchableOpacity 
         onPress = {handlePress}
         className={` rounded-lg text-white text-base ${
