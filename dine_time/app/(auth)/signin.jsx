@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image, StatusBar, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Image, StatusBar, TextInput ,Alert} from 'react-native'
 import {useRouter} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import logo from "../../assets/images/dinetimelogo.png";
@@ -6,12 +6,48 @@ import empty from "../../assets/images/Frame.png";
 import React from 'react'
 import {Formik} from "formik";
 import validationSchema from '../../utils/authSchema';
-
+import { signInWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {getFirestore,doc,setDoc, getDoc} from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Signin = () => {
   const router = useRouter();
-  const handleSignin=()=>{
-
-    } 
+  const auth = getAuth();
+  const db = getFirestore();
+  const handleGuest = async()=>{
+    await AsyncStorage.setItem("isGuest", "true");
+    router.push("/home");
+  }
+  const handleSignin= async(values)=>{
+      try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth, values.email, values.password
+      );
+      const user = userCredentials.user;
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if(userDoc.exists()){
+        console.log("User data:", userDoc.data());
+        await AsyncStorage.setItem("userEmail", values.email);
+        await AsyncStorage.setItem("isGuest", "false");
+        router.push("/home");
+      }else{
+        console.log("No user data found");
+      }
+      
+      } catch (error) {
+        console.log(error);
+      if(error.code==="auth/invalid-credential"){
+        Alert.alert(
+          "Signin Failed!",
+          "Signin Failed","Incorrect passoword. Please Try again",[{text:"OK"}]
+        );
+    }else{
+       Alert.alert(
+          "Sign in Error!",
+          "An unexpected error occured. Please try again later",[{text:"OK"}]
+        );
+    }
+  }
+    }; 
   return (
     <SafeAreaView className={`bg-[#232946]`}>
       <ScrollView contentContainerStyle={{height:"100%"}}>
@@ -71,7 +107,7 @@ const Signin = () => {
                   </Text>
                   <TouchableOpacity 
                     className = "flex flex-row justify-center mt-5 p-2 items-center"
-                    onPress={()=>router.push("/home")}>
+                    onPress={handleGuest}>
                     <Text className="text-white font-semibold">Be a </Text>
                     <Text className="text-base font-semibold underline text-[#f49b33]">{" "} Guest User </Text>
                   </TouchableOpacity>

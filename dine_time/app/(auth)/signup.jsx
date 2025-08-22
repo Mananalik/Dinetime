@@ -1,17 +1,52 @@
-import { View, Text, TouchableOpacity, ScrollView, Image, StatusBar, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Image, StatusBar, TextInput, Alert } from 'react-native'
 import {useRouter} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import logo from "../../assets/images/dinetimelogo.png";
 import empty from "../../assets/images/Frame.png";
 import React from 'react'
+import { createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {getFirestore,doc,setDoc} from "firebase/firestore";
 import {Formik} from "formik";
 import validationSchema from '../../utils/authSchema';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Signup = () => {
   const router = useRouter();
-  const handleSignup=()=>{
+  const auth = getAuth();
+  const db = getFirestore();
+  const handleGuest = async()=>{
+    await AsyncStorage.setItem("isGuest", "true");
+    router.push("/home");
+  }
+  const handleSignup = async (values) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth, values.email, values.password
+      );
+      const user = userCredentials.user;
+      await setDoc(doc(db, "users", user.uid), {
+        email: values.email,
+        createdAt: new Date()
+      });
+      console.log(user);
+      await AsyncStorage.setItem("userEmail", values.email);
+      await AsyncStorage.setItem("isGuest", "false");
+      router.push("/home");
+    } catch (error) {
+      if(error.code==="auth/email-already-in-use"){
+        Alert.alert(
+          "Signup Failed!",
+          "This email address is already in use. Please use a different email.",[{text:"OK"}]
+        );
+    }else{
+       Alert.alert(
+          "Signup Error!",
+          "An unexpected error occured. Please try again later",[{text:"OK"}]
+        );
+    }
+  }
+  };
 
-    } 
   return (
     <SafeAreaView className={`bg-[#232946]`}>
       <ScrollView contentContainerStyle={{height:"100%"}}>
@@ -71,7 +106,7 @@ const Signup = () => {
           </Text>
           <TouchableOpacity 
             className = "flex flex-row justify-center mt-5 p-2 items-center"
-            onPress={()=>router.push("/home")}>
+            onPress={handleGuest}>
             <Text className="text-white font-semibold">Be a </Text>
             <Text className="text-base font-semibold underline text-[#f49b33]">{" "} Guest User </Text>
           </TouchableOpacity>
@@ -84,7 +119,7 @@ const Signup = () => {
       <StatusBar barStyle={"light-content"} backgroundColor={"#232946"}/>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

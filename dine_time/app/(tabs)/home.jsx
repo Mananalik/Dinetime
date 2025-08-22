@@ -9,12 +9,16 @@ import {db} from '../../config/firebaseConfig';
 import { useEffect,useState } from 'react';
 import { useRouter } from 'expo-router';
 // import uploadData from '../../config/bulkupload';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Home() {
     const [restaurants,setRestaurants] = useState([]);
     const router = useRouter();
-
-  const renderItem = ({item}) => (
-    
+    const temp = async()=>{
+      const value = await AsyncStorage.getItem("isGuest");
+      const email = await AsyncStorage.getItem("userEmail");
+      console.log(value,email);
+    }
+    const renderItem = ({item}) => (
     <TouchableOpacity onPress={()=>router.push(`/restaurant/${item.name}`)} className="bg-[#4f5d75] max-h-64 max-w-xs flex justify-center rounded-lg p-4 mx-4 shadow-md">
       <Image resizeMode="cover" 
         source={{uri: item.image}}
@@ -35,7 +39,8 @@ export default function Home() {
   };
   useEffect(()=>{
     getRestaurants();
-  },[]);
+    temp();
+  }, []);
   return (
     <SafeAreaView style={[{backgroundColor:"#232946"}, 
     Platform.OS==="android" && {paddingBottom: 55},

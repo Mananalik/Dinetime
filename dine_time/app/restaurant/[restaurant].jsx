@@ -196,6 +196,7 @@ export default function Restaurant() {
         </View>
         <View className="flex-1">
           <FindSlots
+          restaurant={restaurant}
           date={date}
           selectedNumber={selectedNumber}
           slots = {slotsData}
